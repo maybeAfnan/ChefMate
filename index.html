@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChefMate</title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+<body>
+
+    <div class="header">
+        
+        <img class="icon" src="img/icon.png"/>
+        
+        
+        
+        <div class="search-container">
+            <input type="text" placeholder="Search for a recipe" class="search-input">
+            <button class="search-button">Search</button>
+        </div>
+        <button class="favorites-button">Favorites</button>
+    </div>
+
+    <main class="home-content">
+        
+        <section class="category-section">
+            <button class="category-title" data-category="Breakfast" >Breakfast</button>
+            <button class="category-title" data-category="Starter">Lunch</button>
+            <button class="category-title" data-category="Beef">Beef</button>
+            <button class="category-title"  data-category="Chicken">Chicken</button>
+            <button class="category-title"  data-category="Vegetarian">Vegetarian</button>
+            <button class="category-title"  data-category="Dessert">Desserts</button>
+            </section>
+            <div class="recipes-row" id="recipes-container">
+                
+                <div class="recipe-card">
+                    <div class="card-image-placeholder">  </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Recipe name</h3>
+                        <div class="card-btns">
+                            <button class="details-button">View Details</button>
+                            <button class="add-favorites-button">Add to Favorites</button>
+                        </div>
+                    </div>
+                </div>
+                
+                </div>
+
+        
+        
+        
+
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>

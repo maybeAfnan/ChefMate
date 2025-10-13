@@ -1,0 +1,180 @@
+
+* {
+    
+    margin: 0;
+    padding: 0;
+    font-family: Judson;
+}
+
+body {
+    background-color: #f8f8f8;
+    color: #333;
+    direction: ltr; 
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 40px 50px;
+    box-shadow: 0 2px 4px  rgba(0, 0, 0, 0.1);
+}
+
+.icon{
+    width:270px;
+}
+
+
+.search-container {
+    align-items:center;
+    justify-content: space-between;
+}
+
+.search-input {
+    padding: 10px;
+    border: 1px solid #9AA6B2;
+    border-radius: 5px 5px 5px 5px; 
+    width: 400px;
+    font-size: 16px;
+}
+
+.search-button, .favorites-button {
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    background-color: #E3DE61;
+    color: #2F5249;
+    font-size: 18px;
+    border-radius: 5px 5px 5px 5px;
+    font-weight:bold;
+}
+
+
+.search-button:hover, .favorites-button:hover {
+    background-color: #e3df61a6;
+    
+}
+
+
+.home-content {
+  padding-top:3%;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 5%;
+}
+
+.category-section {
+    padding: 0 10px 10px 10px;
+    display: flex;
+    
+}
+.category-title:hover{
+    background-color:#e3df61a6;
+    border-radius:15px 15px 15px 15px;
+    height:59;
+    width:178;
+    border:none;
+    
+}
+
+.category-title {
+    border:none;
+    background-color:rgba(255, 255, 255, 0);
+    padding: 5px 20px 5px 20px;
+    cursor: pointer;
+    font-size: 20px;
+    color:#2F5249;
+    font-family: Judson;
+    margin: 10px 10px 10px 10px;
+    font-weight:bold;
+}
+
+.recipes-row {
+    display: flex;
+    overflow-x: auto; 
+    padding-bottom: 15px;
+    gap: 25px; 
+    
+}
+
+
+
+.recipe-card {
+    flex: 0 0 auto;
+    width: 250px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.recipe-card:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.card-image-placeholder {
+    height: 160px;
+    width:100%;
+    border-radius:10px 10px 0 0;
+    background-color: #e9ecef;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.card-body {
+    padding: 15px;
+    justify-content: space-between;
+}
+
+.card-title {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #212529;
+}
+
+.card-meta {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 15px;
+}
+
+.card-btns{
+ display: flex;
+ justify-content: space-between;
+}
+
+.details-button {
+    width: 45%;
+    padding: 10px;
+    background-color: #2F5249;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.details-button:hover {
+    background-color: #2f52499e;
+    
+}
+
+.add-favorites-button{
+    width:50%;
+    background-color: #ffffff;
+    color: #2F5249;
+    border: 1px solid #9AA6B2;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-favorites-button:hover {
+    background-color: #dededea6;
+}
