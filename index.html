@@ -5,19 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChefMate</title>
     <link rel="stylesheet" href="styles.css">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
 
     <div class="header">
         
         <img class="icon" src="icon.png"/>
-        
-        
-        
+  
         <div class="search-container">
-            <input type="text" placeholder="Search for a recipe" class="search-input">
-            <button class="search-button">Search</button>
+            <input type="text" id="search-input" placeholder="Search for a recipe" class="search-input">
+            <button class="search-button" id="search-button" onclick="redirectToSearchResults()">Search</button>
         </div>
         <button class="favorites-button">Favorites</button>
     </div>
@@ -47,12 +45,35 @@
                 
                 </div>
 
+        <div id="error-container" class="hidden"></div>
         
-        
-        
+        <div id="result-heading"></div>
+
+        <div id="meals" class="meals-container"></div>
+
+        <div id="meal-details" class="hidden">
+        <button id="back-btn"><i class="fas fa-arrow-left"></i> Back to recipes</button>
+
+        <div class="meal-details-content"></div>
+        </div>
 
     </main>
     <script src="app.js"></script>
-</body>
+     
+    <script>
+        function redirectToSearchResults() {
+            const searchTerm = document.getElementById("search-input").value.trim();
+            if (searchTerm) {
+               window.open(`search-results.html?s=${encodeURIComponent(searchTerm)}`, '_blank');
+            } else {
+                alert("Please enter a search term!");
+            }
+        }
+        document.getElementById("search-button").addEventListener("click", redirectToSearchResults);
+        document.getElementById("search-input").addEventListener("keypress", (e) => {
+            if (e.key === "Enter") redirectToSearchResults();
+        });
+    </script>
 
+</body>
 </html>
