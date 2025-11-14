@@ -1,6 +1,17 @@
-const API_BASE = 'https://www.themealdb.com/api/json/v1/1/';
+const BASE_URL = 'https://www.themealdb.com/api/json/v1/1/';
+const SEARCH_URL = `${BASE_URL}search.php?s=`;
+const LOOKUP_URL = `${BASE_URL}lookup.php?i=`;
+
 const container = document.getElementById('recipes-container');
 const categoryButtons = document.querySelectorAll('.category-title');
+const searchInput = document.querySelector(".search-input");
+const searchBtn = document.querySelector(".search-button");
+const mealsContainer = document.getElementById("meals");
+const resultHeading = document.getElementById("result-heading");
+const errorContainer = document.getElementById("error-container");
+const mealDetails = document.getElementById("meal-details");
+const mealDetailsContent = document.querySelector(".meal-details-content");
+const backBtn = document.getElementById("back-btn");
 
 const MEAL_DATA = [
     { mealId: '53076', calories: 780, cookingTime: 40 },
@@ -61,10 +72,10 @@ categoryButtons.forEach(button => {
 
 async function fetchFilteredMeals(category) {
    
-    const url = `${API_BASE}filter.php?c=${category}`;
+    const url = `${BASE_URL}filter.php?c=${category}`;
 
   
-    container.innerHTML = '<p>Loading ' + category + ' recipes...</p>';
+    container.innerHTML = '<p>Loading ' + category + ' recipes</p>';
 
     try {
         const response = await fetch(url);
@@ -76,11 +87,11 @@ async function fetchFilteredMeals(category) {
         
             renderMeals(meals);
         } else {
-            container.innerHTML = `<p>No meals found for the category: ${category}. Try a different one!</p>`;
+            container.innerHTML = `<p>No meals found for the category: ${category}.</p>`;
         }
     } catch (error) {
         console.error("Error fetching meals:", error);
-        container.innerHTML = '<p>Sorry, an error occurred while loading recipes.</p>';
+        container.innerHTML = '<p>Sorry, an error occurred.</p>';
     }
 }
 
@@ -113,6 +124,86 @@ function renderMeals(meals) {
         card.innerHTML = recipeHtml;
         container.appendChild(card);
     });
+}
+
+//details button 
+container.addEventListener("click", handleHomeMealClick);
+
+// Listener for the back button
+backBtn.addEventListener("click", () => {
+    mealDetails.classList.add("hidden");
+    container.scrollIntoView({ behavior: "smooth" }); // Scroll back to recipes
+});
+
+async function handleHomeMealClick(e) {
+    const detailsBtn = e.target.closest(".details-button");
+    
+    if (!detailsBtn) return;
+    
+    const mealId = detailsBtn.getAttribute("data-id");
+    
+    const mealsData = dataCache[mealId] || { cookingTime: 'N/A', calories: 'N/A' };
+    
+    // Temporarily clear and show loading
+    mealDetailsContent.innerHTML = '<p style="text-align:center;">Loading recipe details...</p>';
+    mealDetails.classList.remove("hidden");
+    mealDetails.scrollIntoView({ behavior: "smooth" });
+
+    try {
+        const response = await fetch(`${LOOKUP_URL}${mealId}`);
+        const data = await response.json();
+
+        if (data.meals && data.meals[0]) {
+            const meal = data.meals[0];
+            const ingredients = [];
+
+            // Extract ingredients and measures
+            for (let i = 1; i <= 20; i++) {
+                const ingredient = meal[`strIngredient${i}`];
+                const measure = meal[`strMeasure${i}`];
+                if (ingredient && ingredient.trim() !== "") {
+                    ingredients.push({
+                        ingredient: ingredient,
+                        measure: measure,
+                    });
+                }
+            }
+
+            // Display meal details
+            mealDetailsContent.innerHTML = `
+                <img src="${meal.strMealThumb}" alt="${meal.strMeal}" class="meal-details-img">
+                <h2 class="meal-details-title">${meal.strMeal}</h2>
+                <div class="meal-details-category">
+                    <span>${meal.strCategory || "Uncategorized"}</span>
+                </div>
+                <p class="card-meta meal-details-meta">
+                    Cooking Time: ${mealsData.cookingTime} minutes | Calories: ${mealsData.calories} calories
+                </p>
+                <div class="meal-details-instructions">
+                    <h3>Instructions</h3>
+                    <p>${meal.strInstructions}</p>
+                </div>
+                <div class="meal-details-ingredients">
+                    <h3>Ingredients</h3>
+                    <ul class="ingredients-list">
+                        ${ingredients
+                            .map(
+                                (item) => `
+                                <li><i class="fas fa-check-circle"></i> ${item.measure} ${item.ingredient}</li>
+                            `
+                            )
+                            .join("")}
+                    </ul>
+                </div>
+            `;
+
+            mealDetails.classList.remove("hidden");
+        } else {
+            mealDetailsContent.innerHTML = '<p style="text-align:center;">Recipe details not found.</p>';
+        }
+    } catch (error) {
+        mealDetailsContent.innerHTML = '<p style="text-align:center;">Could not load recipe details. Please try again later.</p>';
+    }
 }
 
 fetchFilteredMeals('Breakfast');
