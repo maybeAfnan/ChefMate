@@ -301,3 +301,21 @@ body {
   color: #2F5249;
   margin-right: 10px;
 }
+.add-favorites-button.favorite {
+    background-color: #E3DE61; /* Darker background */
+    color: #2F5249; /* White text */
+    border: 1px solid #E3DE61;
+    font-weight: bold;
+}
+
+.add-favorites-button.favorite:hover {
+    background-color: #E3DE61;
+}
+
+.myFav {
+  font-size: 36px; 
+  color: #2F5249;
+  text-align: center;
+  flex-grow: 1;
+}
+
