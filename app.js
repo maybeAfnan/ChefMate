@@ -20,91 +20,77 @@ const MEAL_DATA = [
     { mealId: '52957', calories: 1100, cookingTime: 75 },
     { mealId: '52896', calories: 630, cookingTime: 30 },
     { mealId: '52967', calories: 340, cookingTime: 15 },
-    { mealId: '52842', calories: 480, cookingTime: 22 },
-    { mealId: '52840', calories: 710, cookingTime: 45 },
-    { mealId: '52779', calories: 880, cookingTime: 60 },
-    { mealId: '52841', calories: 590, cookingTime: 35 },
-    { mealId: '53099', calories: 390, cookingTime: 18 },
-    { mealId: '52874', calories: 750, cookingTime: 48 },
-    { mealId: '52878', calories: 920, cookingTime: 65 },
-    { mealId: '53071', calories: 510, cookingTime: 28 },
-    { mealId: '52997', calories: 1050, cookingTime: 80 },
-    { mealId: '52904', calories: 430, cookingTime: 20 },
-    { mealId: '53085', calories: 680, cookingTime: 42 },
-    { mealId: '53050', calories: 810, cookingTime: 55 },
-    { mealId: '52940', calories: 360, cookingTime: 17 },
-    { mealId: '53016', calories: 980, cookingTime: 70 },
-    { mealId: '52846', calories: 490, cookingTime: 24 },
-    { mealId: '52796', calories: 730, cookingTime: 49 },
-    { mealId: '52807', calories: 560, cookingTime: 33 },
-    { mealId: '53078', calories: 1150, cookingTime: 90 },
-    { mealId: '53077', calories: 460, cookingTime: 25 },
-    { mealId: '52870', calories: 840, cookingTime: 58 },
-    { mealId: '53072', calories: 600, cookingTime: 38 },
-    { mealId: '52785', calories: 1020, cookingTime: 85 },
-    { mealId: '53049', calories: 380, cookingTime: 19 },
-    { mealId: '52893', calories: 770, cookingTime: 52 },
-    { mealId: '52768', calories: 530, cookingTime: 30 },
-    { mealId: '52767', calories: 900, cookingTime: 62 },
-    { mealId: '52855', calories: 450, cookingTime: 21 },
-    { mealId: '52894', calories: 690, cookingTime: 44 }
+    { mealId: '52842', calories: 480, cookingTime: 35 },
+    { mealId: '52940', calories: 710, cookingTime: 45 },
+    { mealId: '52926', calories: 550, cookingTime: 30 },
+    { mealId: '52787', calories: 690, cookingTime: 50 },
+    { mealId: '52792', calories: 380, cookingTime: 20 },
+    { mealId: '52951', calories: 1200, cookingTime: 80 },
+    { mealId: '52857', calories: 660, cookingTime: 40 },
+    { mealId: '52820', calories: 590, cookingTime: 35 },
+    { mealId: '52924', calories: 430, cookingTime: 25 },
+    { mealId: '52944', calories: 750, cookingTime: 50 },
+    { mealId: '52934', calories: 900, cookingTime: 65 },
+    { mealId: '52802', calories: 320, cookingTime: 20 },
+    { mealId: '52768', calories: 1050, cookingTime: 70 },
+    { mealId: '52846', calories: 500, cookingTime: 30 },
+    { mealId: '53169', calories: 650, cookingTime: 55 },
+    { mealId: '52840', calories: 420, cookingTime: 25 },
+    { mealId: '52779', calories: 910, cookingTime: 75 },
+    { mealId: '52841', calories: 580, cookingTime: 30 },
+    { mealId: '53173', calories: 720, cookingTime: 60 },
+    { mealId: '53281', calories: 350, cookingTime: 20 },
+    { mealId: '53133', calories: 880, cookingTime: 85 },
+    { mealId: '53099', calories: 510, cookingTime: 45 },
+    { mealId: '52874', calories: 620, cookingTime: 50 },
+    { mealId: '52878', calories: 980, cookingTime: 90 },
+    { mealId: '53071', calories: 480, cookingTime: 35 },
+    { mealId: '53085', calories: 750, cookingTime: 70 },
+    { mealId: '53050', calories: 390, cookingTime: 18 },
+    { mealId: '53016', calories: 830, cookingTime: 80 },
+    { mealId: '53161', calories: 560, cookingTime: 42 },
+    { mealId: '53158', calories: 690, cookingTime: 65 },
+    { mealId: '53288', calories: 940, cookingTime: 78 },
+    { mealId: '53278', calories: 450, cookingTime: 28 },
+    { mealId: '53267', calories: 700, cookingTime: 58 },
+    { mealId: '53107', calories: 500, cookingTime: 48 },
+    { mealId: '52807', calories: 800, cookingTime: 68 },
+    { mealId: '53120', calories: 320, cookingTime: 15 },
+    { mealId: '53138', calories: 670, cookingTime: 52 },
+    { mealId: '53111', calories: 960, cookingTime: 88 },
+    { mealId: '53049', calories: 400, cookingTime: 22 },
+    { mealId: '52893', calories: 590, cookingTime: 47 }
 ];
 
-const dataCache = MEAL_DATA.reduce((acc, item) => {
-    acc[item.mealId] = {
-        calories: item.calories,
-        cookingTime: item.cookingTime,
-    };
+const MEAL_DATA_MAP = MEAL_DATA.reduce((acc, item) => {
+    acc[item.mealId] = { calories: item.calories, cookingTime: item.cookingTime };
     return acc;
 }, {});
 
-categoryButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        categoryButtons.forEach(btn => btn.classList.remove('active'));
-   
-        button.classList.add('active');
-
-        const category = button.getAttribute('data-category');
-        fetchFilteredMeals(category);
-    });
-});
-
 
 async function fetchFilteredMeals(category) {
-   
-    const url = `${BASE_URL}filter.php?c=${category}`;
-
-  
-    container.innerHTML = '<p>Loading ' + category + ' recipes</p>';
-
     try {
-        const response = await fetch(url);
-        
-        const data = await response.json(); 
-        const meals = data.meals;
-
-        if (meals && meals.length > 0) {
-        
-            renderMeals(meals);
+        const response = await fetch(`${BASE_URL}filter.php?c=${category}`);
+        const data = await response.json();
+        if (data.meals) {
+            await renderMeals(data.meals);
         } else {
-            container.innerHTML = `<p>No meals found for the category: ${category}.</p>`;
+            container.innerHTML = `<p class="error-message">No ${category} recipes found.</p>`;
         }
     } catch (error) {
-        console.error("Error fetching meals:", error);
-        container.innerHTML = '<p>Sorry, an error occurred.</p>';
+        container.innerHTML = '<p class="error-message">Failed to fetch recipes.</p>';
     }
 }
 
-function renderMeals(meals) {
-
+async function renderMeals(meals) {
     container.innerHTML = '';
     
     const displayMeals = meals.slice(0, 6); 
 
-    displayMeals.forEach(meal => {
+    displayMeals.forEach((meal, index) => {
         const card = document.createElement('div');
         card.className = 'recipe-card';
-        const mealsData = dataCache[meal.idMeal] || { cookingTime: 'N/A', calories: 'N/A' };
+        const mealsData = MEAL_DATA_MAP[meal.idMeal] || { cookingTime: 'N/A', calories: 'N/A' };
    
         const recipeHtml = `
             <img src="${meal.strMealThumb}" alt="${meal.strMeal}" class="card-image-placeholder">
@@ -116,8 +102,7 @@ function renderMeals(meals) {
                 </div>
                 <div class="card-btns">
                     <button class="details-button" data-id="${meal.idMeal}">View Details</button>
-                    <button class="add-favorites-button">Add to Favorites</button>
-                </div>
+                    </div>
             </div>
         `;
 
@@ -126,50 +111,48 @@ function renderMeals(meals) {
     });
 }
 
-//details button 
-container.addEventListener("click", handleHomeMealClick);
-
-// Listener for the back button
-backBtn.addEventListener("click", () => {
-    mealDetails.classList.add("hidden");
-    container.scrollIntoView({ behavior: "smooth" }); // Scroll back to recipes
+categoryButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+        const category = e.target.getAttribute('data-category');
+        fetchFilteredMeals(category);
+    });
 });
 
-async function handleHomeMealClick(e) {
+container.addEventListener("click", async (e) => {
     const detailsBtn = e.target.closest(".details-button");
-    
-    if (!detailsBtn) return;
-    
-    const mealId = detailsBtn.getAttribute("data-id");
-    
-    const mealsData = dataCache[mealId] || { cookingTime: 'N/A', calories: 'N/A' };
-    
-    // Temporarily clear and show loading
-    mealDetailsContent.innerHTML = '<p style="text-align:center;">Loading recipe details...</p>';
-    mealDetails.classList.remove("hidden");
-    mealDetails.scrollIntoView({ behavior: "smooth" });
 
+    if (detailsBtn) {
+        e.stopPropagation();
+        const mealId = detailsBtn.getAttribute("data-id");
+        handleMealClick(e, mealId);
+    } 
+});
+
+
+backBtn.addEventListener("click", () => {
+    mealDetails.classList.add("hidden");
+});
+
+
+async function handleMealClick(e, mealId) {
+    const mealsData = MEAL_DATA_MAP[mealId] || { cookingTime: 'N/A', calories: 'N/A' };
+    
     try {
         const response = await fetch(`${LOOKUP_URL}${mealId}`);
         const data = await response.json();
+        const meal = data.meals[0];
 
-        if (data.meals && data.meals[0]) {
-            const meal = data.meals[0];
-            const ingredients = [];
-
-            // Extract ingredients and measures
+        if (meal) {
+            let ingredients = [];
             for (let i = 1; i <= 20; i++) {
-                const ingredient = meal[`strIngredient${i}`];
-                const measure = meal[`strMeasure${i}`];
-                if (ingredient && ingredient.trim() !== "") {
+                if (meal[`strIngredient${i}`] && meal[`strIngredient${i}`].trim() !== '') {
                     ingredients.push({
-                        ingredient: ingredient,
-                        measure: measure,
+                        ingredient: meal[`strIngredient${i}`],
+                        measure: meal[`strMeasure${i}`]
                     });
                 }
             }
 
-            // Display meal details
             mealDetailsContent.innerHTML = `
                 <img src="${meal.strMealThumb}" alt="${meal.strMeal}" class="meal-details-img">
                 <h2 class="meal-details-title">${meal.strMeal}</h2>
@@ -198,6 +181,8 @@ async function handleHomeMealClick(e) {
             `;
 
             mealDetails.classList.remove("hidden");
+            mealDetails.scrollIntoView({ behavior: "smooth" });
+
         } else {
             mealDetailsContent.innerHTML = '<p style="text-align:center;">Recipe details not found.</p>';
         }
