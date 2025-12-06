@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChefMate</title>
+    <link rel="stylesheet" href="styles.css"> 
+    
+</head>
+<body>
+    <div class="loginContainer">
+        <div class="loginBox">
+            <img class="icon" src="icon.png" style="width: 200px; margin-bottom: 20px;">
+            <h2 id="formTitle">Login</h2>
+            <form id="authForm">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required 
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+}{:;?/><,.|`]).{7,}">
+                <button type="submit" id="submitBtn">Login</button>
+                <p id="message"></p>
+            </form>
+            <p class="toggleLink" id="toggleAuth">Need an account? Register</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('authForm');
+            const toggleLink = document.getElementById('toggleAuth');
+            const title = document.getElementById('formTitle');
+            const submitBtn = document.getElementById('submitBtn');
+            const message = document.getElementById('message');
+
+            let isLogin = true;
+
+            toggleLink.addEventListener('click', () => {
+                isLogin = !isLogin;
+                title.textContent = isLogin ? 'Login' : 'Register';
+                submitBtn.textContent = isLogin ? 'Login' : 'Register';
+                toggleLink.textContent = isLogin ? 'Need an account? Register' : 'Already have an account? Login';
+                message.textContent = ''; 
+                form.reset();
+            });
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                message.textContent = '';
+                
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                if (!isLogin) {
+                    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+}{:;?/><,.|`]).{7,}$/;
+                    
+                    if (!passwordRegex.test(password)) {
+                        message.style.color = 'red';
+                        
+                        message.innerHTML = `
+                            Password must be
+                            <ul>
+                                <li>At least 7 characters long</li>
+                                <li>At least one uppercase letter</li>
+                                <li>At least one lowercase letter</li>
+                                <li>At least one number</li>
+                                <li>At least one special character (e.g., !@#$)</li>
+                            </ul>
+                        `;
+                        
+
+                        return;
+                    }}
+
+                const endpoint = isLogin ? '/api/login' : '/api/register';
+
+                try {
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, password })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        message.style.color = 'green';
+                        
+                        if (isLogin) {
+                            message.textContent = 'Login successful! Redirecting...';
+                            setTimeout(() => {
+                                window.location.href = '/'; 
+                            }, 500);
+                        } else {
+                            message.textContent = 'Registration successful! You can now log in.';
+                            isLogin = true;
+                            title.textContent = 'Login';
+                            submitBtn.textContent = 'Login';
+                            toggleLink.textContent = 'Need an account? Register';
+                            form.reset();
+                        }
+                    } else {
+                        message.style.color = 'red';
+                        message.textContent = data.message || 'An error occurred.';
+                    }
+                } catch (error) {
+                    message.style.color = 'red';
+                    message.textContent = 'Network error or server connection failed.';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

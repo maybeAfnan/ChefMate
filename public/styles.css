@@ -1,0 +1,388 @@
+
+* {
+    
+    margin: 0;
+    padding: 0;
+    font-family: Judson;
+}
+
+body {
+    background-color: #f8f8f8;
+    color: #333;
+    direction: ltr; 
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 40px 50px;
+    box-shadow: 0 2px 4px  rgba(0, 0, 0, 0.1);
+}
+
+.icon{
+    width:270px;
+}
+
+
+.search-container {
+    align-items:center;
+    justify-content: space-between;
+}
+
+.search-input {
+    padding: 10px;
+    border: 1px solid #9AA6B2;
+    border-radius: 5px 5px 5px 5px; 
+    width: 400px;
+    font-size: 16px;
+}
+
+.search-button, .favorites-button, .back-btn {
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    background-color: #E3DE61;
+    color: #2F5249;
+    font-size: 18px;
+    border-radius: 5px 5px 5px 5px;
+    font-weight:bold;
+}
+
+
+.search-button:hover, .favorites-button:hover {
+    background-color: #e3df61a6;
+    
+}
+
+
+.home-content {
+  padding-top:3%;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 5%;
+}
+
+.category-section {
+    padding: 0 10px 10px 10px;
+    display: flex;
+    
+}
+.category-title:hover{
+    background-color:#e3df61a6;
+    border-radius:15px 15px 15px 15px;
+    height:59;
+    width:178;
+    border:none;
+    
+}
+
+.category-title {
+    border:none;
+    background-color:rgba(255, 255, 255, 0);
+    padding: 5px 20px 5px 20px;
+    cursor: pointer;
+    font-size: 20px;
+    color:#2F5249;
+    font-family: Judson;
+    margin: 10px 10px 10px 10px;
+    font-weight:bold;
+}
+
+
+.recipes-row {
+    display: flex;
+    overflow-x: auto; 
+    padding-bottom: 15px;
+    gap: 25px; 
+    
+}
+
+
+
+.recipe-card {
+    flex: 0 0 auto;
+    width: 250px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.recipe-card:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.card-image-placeholder {
+    height: 160px;
+    width:100%;
+    border-radius:10px 10px 0 0;
+    background-color: #e9ecef;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.card-body {
+    padding: 15px;
+    justify-content: space-between;
+}
+
+.card-title {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #212529;
+}
+
+.card-meta {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 15px;
+}
+
+.card-btns{
+ display: flex;
+ justify-content: space-between;
+}
+
+.details-button {
+    width: 45%;
+    padding: 10px;
+    background-color: #2F5249;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.details-button:hover {
+    background-color: #2f52499e;
+    
+}
+
+.add-favorites-button, .remove-favorites-button{
+    width:53%;
+    background-color: #ffffff;
+    color: #2F5249;
+    border: 1px solid #9AA6B2;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-favorites-button:hover , .remove-favorites-button:hover {
+    background-color: #dededea6;
+}
+
+.meals-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  padding: 20px 0;
+  justify-content: flex-start;
+}
+
+.meal-card {
+  flex: 0 0 auto;
+  width: 250px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.meal-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+
+.meal-title {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #212529;
+}
+
+.meal-category {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+#meal-details {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  margin-top: 30px;
+}
+
+#meal-details.hidden {
+  display: none;
+}
+
+#back-btn {
+  margin-bottom: 20px;
+  padding: 8px 15px;
+  font-size: 16px;
+  background-color: #2F5249;
+  color: white;
+}
+
+#back-btn:hover {
+  background-color: #2f52499e;
+}
+
+.meal-details-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.meal-details-img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.meal-details-title {
+  font-size: 30px;
+  margin-bottom: 10px;
+  color: #2F5249;
+}
+
+.meal-details-category span {
+  display: inline-block;
+  background-color: #E3DE61;
+  color: #2F5249;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.meal-details-instructions h3, .meal-details-ingredients h3 {
+  color: #2F5249;
+  border-bottom: 2px solid #E3DE61;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+
+.meal-details-instructions p {
+  line-height: 1.6;
+}
+
+.ingredients-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.ingredients-list li {
+  padding: 5px 0;
+  font-size: 16px;
+}
+
+.ingredients-list li i {
+  color: #2F5249;
+  margin-right: 10px;
+}
+
+.add-favorites-button.favorite {
+    background-color: #E3DE61;
+    color: #2F5249;
+    border: 1px solid #E3DE61;
+    font-weight: bold;
+}
+
+.add-favorites-button.favorite:hover {
+    background-color: #E3DE61;
+}
+
+.myFav {
+  font-size: 36px; 
+  color: #2F5249;
+  text-align: center;
+  flex-grow: 1;
+  margin-right:280px;
+}
+
+.loginContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f8f8f8;
+}
+.loginBox {
+    background: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+}
+.loginBox h2 {
+    color: #2F5249;
+    margin-bottom: 20px;
+}
+.loginBox input {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.loginBox button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #E3DE61;
+    color: #2F5249;
+    font-weight: bold;
+}
+.loginBox button:hover {
+    background-color: #d1cc57;
+}
+#message {
+    margin-top: 15px;
+    color: red;
+    font-weight: bold;
+}
+.toggleLink {
+    margin-top: 15px;
+    color: #2F5249;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.addFavoritesDetails {
+  width: 15%;
+    padding: 10px;
+    background-color: #ffffff;
+    color: #2F5249;
+    border: 1px solid #9AA6B2;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#message ul {
+    list-style-type: disc;
+    margin-left: 2px;
+    text-align: left;
+    padding-right: 0;
+}
+#message li {
+    margin-bottom: 5px;
+}
